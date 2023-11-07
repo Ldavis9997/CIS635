@@ -10,7 +10,7 @@ class TestStringMethods(unittest.TestCase):
     def test_fileMerging(self):
         fullYear2012 = pd.read_excel(r"CIS635\Full Year\2012fullyear.xlsx")
         fullYear2013 = pd.read_excel(r"CIS635\Full Year\2013fullyear.xlsx")
-        fullYear2014 = pd.read_excel(r"CIS635\2014\NIJ2014_JAN01_DEC31.xlsx")
+        fullYear2014 = pd.read_excel(r"CIS635\2014\2014fullyear.xlsx")
         fullYear2015 = pd.read_excel(r"CIS635\Full Year\2015fullyear.xlsx")
         #2016
         janJuly2016 = pd.read_excel(r"CIS635\2016\2016jan-july.xlsx")
