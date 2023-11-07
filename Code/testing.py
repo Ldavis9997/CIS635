@@ -10,7 +10,7 @@ class TestStringMethods(unittest.TestCase):
     def test_fileMerging(self):
         fullYear2012 = pd.read_excel(r"CIS635\Full Year\2012fullyear.xlsx")
         fullYear2013 = pd.read_excel(r"CIS635\Full Year\2013fullyear.xlsx")
-        #no 2014 data?
+        fullYear2014 = pd.read_excel(r"CIS635\2014\NIJ2014_JAN01_DEC31.xlsx")
         fullYear2015 = pd.read_excel(r"CIS635\Full Year\2015fullyear.xlsx")
         #2016
         janJuly2016 = pd.read_excel(r"CIS635\2016\2016jan-july.xlsx")
@@ -28,9 +28,9 @@ class TestStringMethods(unittest.TestCase):
         feb_28_2017 = pd.read_excel(r"CIS635\2017\2017feb28.xlsx")
         marMay2017 = pd.read_excel(r"CIS635\2017\2017mar-may.xlsx")
 
-        dataList=[fullYear2012, fullYear2013, fullYear2015, janJuly2016, aug2016, sept2016, 
-                oct2016, nov2016, dec2016, jan2017, feb_1_14_2017, feb_15_21_2017, feb_22_26_2017, 
-                feb_27_2017, feb_28_2017, marMay2017]
+        dataList=[fullYear2012, fullYear2013, fullYear2014,fullYear2015, janJuly2016, aug2016, sept2016, 
+            oct2016, nov2016, dec2016, jan2017, feb_1_14_2017, feb_15_21_2017, feb_22_26_2017, 
+            feb_27_2017, feb_28_2017, marMay2017]
         
         expectedNumRows = 0
         for tempData in dataList:

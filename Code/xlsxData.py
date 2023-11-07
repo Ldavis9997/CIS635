@@ -13,7 +13,7 @@ def readXLSXfilkes():
 
     fullYear2012 = pd.read_excel(r"CIS635\Full Year\2012fullyear.xlsx")
     fullYear2013 = pd.read_excel(r"CIS635\Full Year\2013fullyear.xlsx")
-    #no 2014 data?
+    fullYear2014 = pd.read_excel(r"CIS635\2014\2014fullyear.xlsx")
     fullYear2015 = pd.read_excel(r"CIS635\Full Year\2015fullyear.xlsx")
     #2016
     janJuly2016 = pd.read_excel(r"CIS635\2016\2016jan-july.xlsx")
@@ -33,7 +33,7 @@ def readXLSXfilkes():
 
 
     # removing fullYear2012, fullYear2013 because of intial merge
-    dataList=[fullYear2015, janJuly2016, aug2016, sept2016, 
+    dataList=[fullYear2014,fullYear2015, janJuly2016, aug2016, sept2016, 
             oct2016, nov2016, dec2016, jan2017, feb_1_14_2017, feb_15_21_2017, feb_22_26_2017, 
             feb_27_2017, feb_28_2017, marMay2017]
 
