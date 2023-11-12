@@ -45,7 +45,8 @@ def readXLSXfilkes():
     return crimeDataDF
 
     
-readXLSXfilkes().shape
+readXLSXfilkes()
+
 
 
 
