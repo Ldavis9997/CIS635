@@ -1,0 +1,69 @@
+```{r}
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+theme_set(theme_pubr())
+data <- read_excel("~/Downloads/CIS635/Code/crime.xlsx")
+
+cat_and_year <- (data[,c(2,10)])
+con_cat_and_year <- table(cat_and_year)
+cat_df <- as.data.frame(con_cat_and_year)
+
+group_and_year <- (data[,c(3,10)])
+con_group_and_year <- table(group_and_year)
+group_df <- as.data.frame(con_group_and_year)
+
+cat_and_group_year <- (data[,c(2,3,10)])
+con_cat_and_group_year <- table(cat_and_group_year)
+cat_and_group_df <- as.data.frame(con_cat_and_group_year)
+
+#Visualizing the distribution of categories of crime per year and groups of crime per year:
+
+ggballoonplot(cat_df, x = "year", y = "CATEGORY", size = "Freq",
+              fill = "Freq", facet.by = "year",
+              ggtheme = theme_bw()) +
+  scale_fill_viridis_c(option = "C")
+
+ggballoonplot(group_df, x = "year", y = "CALL.GROUPS", size = "Freq",
+              fill = "Freq", facet.by = "year",
+              ggtheme = theme_bw()) +
+  scale_fill_viridis_c(option = "C")
+
+
+ggballoonplot(cat_and_group_df, x = "CATEGORY", y = "CALL.GROUPS", size = "Freq",
+              fill = "Freq", facet.by = "year",
+              ggtheme = theme_bw()) +
+  scale_fill_viridis_c(option = "C")
+
+
+#Non-multivariate bar chart visualization:
+ggplot(cat_and_group_df, aes(x = CALL.GROUPS, y = Freq))+
+  geom_bar(
+    aes(fill = CALL.GROUPS), stat = "identity", color = "white",
+    position = position_dodge(0.5)
+    )+
+  facet_wrap(~year) + 
+  fill_palette("jco")
+
+#non-multivariate Mosaic plot:
+library(vcd)
+mosaic(con_group_and_year, shade = TRUE, legend = TRUE) 
+
+mosaic(con_cat_and_year, shade = TRUE, legend = TRUE)
+
+#I'm not exactly sure what the Pearson residual p-value means here. 
+
+library(FactoMineR)
+library(factoextra)
+res.ca <- CA(con_group_and_year, graph = FALSE)
+fviz_ca_biplot(res.ca, repel = TRUE)
+
+res.ca <- CA(con_cat_and_year, graph = FALSE)
+fviz_ca_biplot(res.ca, repel = TRUE)
+
+
+
+
+
+```
