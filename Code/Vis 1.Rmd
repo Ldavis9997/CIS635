@@ -48,7 +48,12 @@ ggplot(cat_and_group_df, aes(x = CALL.GROUPS, y = Freq))+
 
 #non-multivariate Mosaic plot:
 library(vcd)
-mosaic(con_group_and_year, shade = TRUE, legend = TRUE) 
+mosaic(con_group_and_year, shade = TRUE, legend = TRUE,        labeling = labeling_border( 
+                                  offset_label =c(.5,5,10, 0),
+                                  set_labels=list(CALL.GROUPS = c("M", "F")),
+                                  varnames = c(FALSE, TRUE),
+                                  just_labels=c("center","center"),
+                                  tl_varnames = TRUE)) 
 
 mosaic(con_cat_and_year, shade = TRUE, legend = TRUE)
 
@@ -58,10 +63,32 @@ library(FactoMineR)
 library(factoextra)
 res.ca <- CA(con_group_and_year, graph = FALSE)
 fviz_ca_biplot(res.ca, repel = TRUE)
+summary(res.ca)
+cat_and_group_year
+newtea = cat_and_group_year[c("CATEGORY", "CALL GROUPS", "year")]
+cats = apply(newtea, 2, function(x) nlevels(as.factor(x)))
+newtea[] <- lapply(newtea, factor)
+
+mca1 = MCA(newtea, graph = FALSE)
+# data frames for ggplot
+mca1_vars_df = data.frame(mca1$var$coord, Variable = rep(names(cats), 
+    cats))
+mca1_obs_df = data.frame(mca1$ind$coord)
+
+# plot of variable categories
+ggplot(data = mca1_vars_df, aes(x = Dim.1, y = Dim.2, label = rownames(mca1_vars_df))) + 
+    geom_hline(yintercept = 0, colour = "gray70") + geom_vline(xintercept = 0, 
+    colour = "gray70") + geom_text(aes(colour = Variable)) + ggtitle("MCA plot of variables using R package FactoMineR")
+
+# MCA plot of observations and categories
+ggplot(data = mca1_obs_df, aes(x = Dim.1, y = Dim.2)) + geom_hline(yintercept = 0, 
+    colour = "gray70") + geom_vline(xintercept = 0, colour = "gray70") + geom_point(colour = "gray50", 
+    alpha = 0.7) + geom_density2d(colour = "gray80") + geom_text(data = mca1_vars_df, 
+    aes(x = Dim.1, y = Dim.2, label = rownames(mca1_vars_df), colour = Variable)) + 
+    ggtitle("MCA plot of variables using R package FactoMineR") + scale_colour_discrete(name = "Variable")
 
 res.ca <- CA(con_cat_and_year, graph = FALSE)
 fviz_ca_biplot(res.ca, repel = TRUE)
-
 
 
 
