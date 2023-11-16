@@ -84,7 +84,15 @@ multi<- ggplot(data = mca1_vars_df, aes(x = Dim.1, y = Dim.2, label = rownames(m
 ggsave("multi.png", multi, width = 10)
 
 var <- get_mca_var(res.mca1)
-var
+var$contrib
+eig.val <- get_eigenvalue(res.mca1)
+fviz_screeplot(res.mca1, addlabels = TRUE, ylim = c(0, 45))
+
+# Color by cos2 values: quality on the factor map
+fviz_mca_var(res.mca1, col.var = "cos2",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
+             repel = TRUE, # Avoid text overlapping
+             ggtheme = theme_minimal())
 
 res.ca <- CA(con_cat_and_year, graph = FALSE)
 fviz_ca_biplot(res.ca, repel = TRUE)
