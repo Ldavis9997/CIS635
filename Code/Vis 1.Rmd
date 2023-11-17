@@ -4,6 +4,7 @@ library(readxl)
 library(ggplot2)
 library(ggpubr)
 theme_set(theme_pubr())
+
 data <- read_excel("~/CIS635/Code/crime.xlsx")
 
 cat_and_year <- (data[,c(2,10)])
@@ -24,20 +25,23 @@ ggballoonplot(cat_df, x = "year", y = "CATEGORY", size = "Freq",
               fill = "Freq", facet.by = "year",
               ggtheme = theme_bw()) +
   scale_fill_viridis_c(option = "C")
-
+#FIGURE 1:
 ggballoonplot(group_df, x = "year", y = "CALL.GROUPS", size = "Freq",
               fill = "Freq", facet.by = "year",
               ggtheme = theme_bw()) +
   scale_fill_viridis_c(option = "C")
 
 
-ggballoonplot(cat_and_group_df, x = "CATEGORY", y = "CALL.GROUPS", size = "Freq",
+#FIGURE 2:
+(ggballoonplot(cat_and_group_df, x = "CATEGORY", y = "CALL.GROUPS", size = "Freq",
               fill = "Freq", facet.by = "year",
               ggtheme = theme_bw()) +
-  scale_fill_viridis_c(option = "C")
+  scale_fill_viridis_c(option = "C"))
+ggsave('FIGURE 2.png', hi, width = 10)
 
 
 #Non-multivariate bar chart visualization:
+
 ggplot(cat_and_group_df, aes(x = CALL.GROUPS, y = Freq))+
   geom_bar(
     aes(fill = CALL.GROUPS), stat = "identity", color = "white",
@@ -62,6 +66,7 @@ mosaic(con_cat_and_year, shade = TRUE, legend = TRUE)
 library(FactoMineR)
 library(factoextra)
 res.ca <- CA(con_group_and_year, graph = FALSE)
+#FIGURE 3:
 fviz_ca_biplot(res.ca, repel = TRUE)
 summary(res.ca)
 
@@ -77,17 +82,19 @@ mca1_vars_df = data.frame(mca1$var$coord, Variable = rep(names(cats),
     cats))
 mca1_obs_df = data.frame(mca1$ind$coord)
 
+
 # plot of variable categories
 multi<- ggplot(data = mca1_vars_df, aes(x = Dim.1, y = Dim.2, label = rownames(mca1_vars_df))) + 
     geom_hline(yintercept = 0, colour = "gray70") + geom_vline(xintercept = 0, 
     colour = "gray70") + geom_text(aes(colour = Variable)) + ggtitle("MCA plot of variables using R package FactoMineR")
-ggsave("multi.png", multi, width = 10)
+
 
 var <- get_mca_var(res.mca1)
 var$contrib
 eig.val <- get_eigenvalue(res.mca1)
 fviz_screeplot(res.mca1, addlabels = TRUE, ylim = c(0, 45))
 
+#FIGURE 4:
 # Color by cos2 values: quality on the factor map
 fviz_mca_var(res.mca1, col.var = "cos2",
              gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
