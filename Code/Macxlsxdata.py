@@ -65,7 +65,7 @@ def fileReader(directory):
                 crimeDataDF = crimeDataDF.merge(temp_file, how = 'outer')
 
     # code adds in two addtional nan-columns - deleting those
-    # crimeDataDF = crimeDataDF.iloc[:, [0,1]].drop
+    crimeDataDF.drop(columns=crimeDataDF.columns[0:2], inplace=True)
     return crimeDataDF
 
 # used to test a small version of our data so that we can ensure syntax/low level bugs are fixed before compliling actual dataset

@@ -23,4 +23,4 @@ def mainRun(runType = '', readGeo = False):
         #crimeData_geo = geoData.shpFileReader(geo_directory)
         print(crimeData_geo)
 
-mainRun(" ", readGeo=True)
+mainRun('Main', readGeo=False)
