@@ -16,9 +16,9 @@ import numpy as np
     # full years
 
 
-    fullYear2013 = pd.read_excel(file_name+ r"/CIS635/Full_Year/2013fullyear.xlsx")    fullYear2012 = pd.read_excel(file_name+ r"/CIS635/Full_Year/2012fullyear.xlsx")
+    fullYear2013 = pd.read_excel(file_name+ r"/CIS635/Full Year/2013fullyear.xlsx")    fullYear2012 = pd.read_excel(file_name+ r"/CIS635/Full_Year/2012fullyear.xlsx")
     fullYear2014 = pd.read_excel(file_name+ r"/CIS635/2014/2014fullyear.xlsx")
-    fullYear2015 = pd.read_excel(file_name+ r"/CIS635/Full_Year/2015fullyear.xlsx")
+    fullYear2015 = pd.read_excel(file_name+ r"/CIS635/Full Year/2015fullyear.xlsx")
     #2016
     janJuly2016 = pd.read_excel(file_name + r"/CIS635/2016/2016jan-july.xlsx")
     aug2016 = pd.read_excel(file_name+ r"/CIS635/2016/2016aug.xlsx")
@@ -70,8 +70,8 @@ def fileReader(directory):
 
 # used to test a small version of our data so that we can ensure syntax/low level bugs are fixed before compliling actual dataset
 def smallTesterFile(file_name = ""):
-    fullYear2012 = pd.read_excel(file_name + r"/CIS635/Full_Year/2012fullyear.xlsx")
-    fullYear2013 = pd.read_excel(file_name + r"/CIS635/Full_Year/2013fullyear.xlsx")
+    fullYear2012 = pd.read_excel(file_name + r"/CIS635/Full Year/2012fullyear.xlsx")
+    fullYear2013 = pd.read_excel(file_name + r"/CIS635/Full Year/2013fullyear.xlsx")
     testset = pd.merge(fullYear2012, fullYear2013, how = 'outer')
     return testset
 
