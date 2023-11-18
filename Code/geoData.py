@@ -2,6 +2,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import os
 import pandas as pd
+import fiona
 
 def shpFileReader(directory):
     crimeData_geom = gpd.GeoDataFrame(columns=['CATEGORY', 'CALL_GROUP', 'final_case', 
@@ -11,14 +12,12 @@ def shpFileReader(directory):
     for dirpath, dirnames, filenames in os.walk(directory):
         for filename in filenames:
             if filename.endswith('.shp'):
-                temp_file = gpd.read_file(dirpath + '/' + filename)
-                print(dirpath + '/' + filename)
-                crimeData_geom = crimeData_geom.merge(temp_file, how = 'outer')
+                with fiona.open(dirpath + '/' + filename) as shp:
+                    temp_file = gpd.read_file(shp)
+                    #temp_file = gpd.read_file(dirpath + '/' + filename, engine="pyogrio")
+                    crimeData_geom = crimeData_geom.merge(temp_file, how = 'outer')
 
     return crimeData_geom
-
-#file_name = "/Users/lauryndavis/"
-file_name = "/Users/Ldettling/Desktop"
 
 
 def shpFile_brute_MAC(fileName):
