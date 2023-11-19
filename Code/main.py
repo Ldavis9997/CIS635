@@ -4,8 +4,8 @@ import Macxlsxdata as mac
 import pandas as pd
 import geoData 
 
-#file_name = "/Users/lauryndavis/"
-file_name = "/Users/Ldettling/Documents"
+file_name = "/Users/lauryndavis/"
+#file_name = "/Users/Ldettling/Documents"
 data_directory = "/Users/Ldettling/Documents/CIS635"
 geo_directory = "/Users/Ldettling/Documents/CIS635/Geo_Data"
 
