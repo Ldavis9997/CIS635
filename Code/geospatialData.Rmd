@@ -1,0 +1,71 @@
+```{r} 
+library(tidyverse)
+library(sf)
+#library(rgdal)
+library(leaflet)
+library(ggmap)
+library(maps)
+
+filepath <- "/Users/Ldettling/Documents/"
+
+#janjuly2016 <- read_sf("~/Class_Git/Geo_Data/2016/NIJ2016_JAN01_JUL31.shp")
+#aug2016<- read_sf("~/Class_Git/Geo_Data/2016/NIJ2016_AUG01_AUG31.shp")
+#sept2016<- read_sf("~/Class_Git/Geo_Data/2016/NIJ2016_SEP01_SEP30.shp")
+#oct2016<- read_sf("~/Class_Git/Geo_Data/2016/NIJ2016_OCT01_OCT31.shp")
+#nov2016<- read_sf("~/Class_Git/Geo_Data/2016/NIJ2016_NOV01_NOV30.shp")
+#dec2016<- read_sf("~/Class_Git/Geo_Data/2016/NIJ2016_DEC01_DEC31.shp")
+ 
+
+
+#jan2017<- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_JAN01_JAN31.shp")
+#feb1to142017<- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_FEB01_FEB14.shp")
+#feb15to212017<- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_FEB15_FEB21.shp")
+#feb22to26 <- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_FEB22_FEB26.shp")
+#feb27<- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_FEB27.shp")
+#feb28<- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_FEB28.shp")
+#marchmay2017<- read_sf("~/Class_Git/Geo_Data/2017/NIJ2017_MAR01_MAY31.shp")
+ 
+
+#Full years: 2012 only has data from march - dec. 
+full_2012 <-  read_sf(paste(filepath, "gvsu-cis635-term-project-crime-team-lauryn-jess-l/Geo_Data/2012/NIJ2012_MAR01_DEC31.shp", sep = ""))
+full_2012
+
+full_2013 <-  read_sf(paste(filepath, "gvsu-cis635-term-project-crime-team-lauryn-jess-l/Geo_Data/2013/NIJ2013_JAN01_DEC31.shp", sep = ""))
+full_2013
+
+full_2014<- read_sf(paste(filepath, "gvsu-cis635-term-project-crime-team-lauryn-jess-l/Geo_Data/2014/NIJ2014_JAN01_DEC31.shp", sep = ""))
+full_2014
+
+
+#We cannot merge the full 2016 together yet until we push the dbf files. 
+#full2016 <- rbind(janjuly2016,aug2016,sept2016,oct2016,nov2016,dec2016)
+
+#Full 2017 is good if you want to start a geo-spatial technique on this! 
+#full2017<- rbind(jan2017,feb1to142017,feb15to212017, feb22to26, feb27, feb28, marchmay2017)
+
+part2017Test <- read_sf("/Users/Ldettling/Documents/gvsu-cis635-term-project-crime-team-lauryn-jess-l/Geo_Data/2017/NIJ2017_FEB01_FEB14.shp")
+part2017Test
+
+#We cannot merge all years together until dbfs have been uploaded. 
+all_data <- full2017<- rbind(full_2012, part2017Test)
+
+states_map <- map("state", fill = TRUE, plot = FALSE)
+
+#Ignore this chunk for now
+#leaflet(states_map) %>% addTiles() %>%
+#        setView(lng = -95.7129, 
+#              lat = 37.0902, 
+#              zoom = 4.2)%>%
+#        setMaxBounds(-50.04102, 10, -150, 50)%>%
+#  addCircleMarkers(data = full2017, lng = ~x_coordina, lat = ~y_coordina, 
+#             popup = ~CATEGORY)
+
+#You can look at this:
+plot(st_geometry(full2017), col = sf.colors(12, categorical = TRUE), border = 'grey', 
+     axes = TRUE)
+
+plot(full2017)
+plot(full2017["CALL_GROUP"], key.pos = 1, axes = TRUE, key.width = lcm(1.3), key.length = 1.0)
+
+
+```
